@@ -18,7 +18,7 @@ class shodan4php {
     function __construct($apikey)
     {
         $this->apikey = $apikey;
-        $this->shodan = "http://www.shodanhq.com/api/";
+        $this->shodan = "http://www.shodanhq.com/api/";// or is it "https://api.shodan.io/";
 
     }
 
@@ -31,6 +31,8 @@ class shodan4php {
      */
     function request($mode, $params)
     {
+        //ini_set('max_execution_time', 1000);
+        //set_time_limit(0);
         $qry = http_build_query($params + array('key'=>$this->apikey));
         $url =  $this->shodan . $mode . '?' . $qry;
         $r = curl_init($url);

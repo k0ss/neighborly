@@ -1,0 +1,14 @@
+Neighborly
+A project by Kyle Ossinger
+Advised by professor Phillip Dickens
+
+Installation
+------------
+* Extract to web root directory
+* Create mysql user "neighborly" and database "neighborly"
+* Set neighborly's password
+* Rename config.php.example to config.php
+* Change config.php so that neighborly's password matches the one you set
+* Run mysql -u neighborly -p password < neighborly.db  (where password is the password you set)
+* Start web server
+* Navigate to the site using your web browser and login using your API key (you can also set the API key in config.php)

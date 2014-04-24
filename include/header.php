@@ -1,6 +1,5 @@
 <?php
 include_once("./include/config.php");
-include_once("./include/shodan4php.php");
 ?>
 
 <!DOCTYPE html>
@@ -20,10 +19,10 @@ include_once("./include/shodan4php.php");
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
     <?php //load map functions only if we're showing the map
     if($_SERVER['PHP_SELF'] == '/map.php')
     {
@@ -34,7 +33,7 @@ include_once("./include/shodan4php.php");
             #map-canvas { height: 100% }
         </style>
         <script type="text/javascript"
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABK5DfRbmldYuU243Mwweg76U4VBTQwhw&sensor=false">
+                src="js/gmapapi.js">
         </script>
         <script type="text/javascript" src="js/map.js"></script>
     <?php

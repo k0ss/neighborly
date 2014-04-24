@@ -1,0 +1,85 @@
+-- MySQL dump 10.13  Distrib 5.5.34, for Win32 (x86)
+--
+-- Host: localhost    Database: neighborly
+-- ------------------------------------------------------
+-- Server version	5.5.34
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `signatures`
+--
+
+DROP TABLE IF EXISTS `signatures`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `signatures` (
+  `sigid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `vulnid` int(10) unsigned NOT NULL,
+  `signature` char(32) NOT NULL,
+  UNIQUE KEY `id` (`sigid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `signatures`
+--
+
+LOCK TABLES `signatures` WRITE;
+/*!40000 ALTER TABLE `signatures` DISABLE KEYS */;
+INSERT INTO `signatures` VALUES (2,1,'\'Basic realm=\"WRT54G\"\''),(3,1,'\'Basic realm=\"WRT54GS\"\''),(4,2,'\'Basic realm=\"Linksys EA2700\"\''),(6,3,'\'Basic realm=\"WBR-1310\"\'');
+/*!40000 ALTER TABLE `signatures` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vulndb`
+--
+
+DROP TABLE IF EXISTS `vulndb`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vulndb` (
+  `vulnid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sigid` int(10) unsigned NOT NULL,
+  `severity` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '0=low,1=med,2=high',
+  `successchance` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '0=unpractical,1=do-able,2=easy',
+  `devicename` char(32) NOT NULL,
+  `vulntype` tinyint(2) unsigned NOT NULL COMMENT '0=xss,1=sqli,2=code_exec,3=dns,4=authbypass,5=other, ... can add more',
+  `advisorylink` char(255) NOT NULL,
+  `description` char(140) NOT NULL COMMENT 'Description limited to tweet size for speed and display purposes.',
+  `defaultcreds` char(128) DEFAULT NULL,
+  `cve` char(16) DEFAULT NULL,
+  `reportdate` date DEFAULT NULL,
+  UNIQUE KEY `vulnid` (`vulnid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vulndb`
+--
+
+LOCK TABLES `vulndb` WRITE;
+/*!40000 ALTER TABLE `vulndb` DISABLE KEYS */;
+INSERT INTO `vulndb` VALUES (1,1,2,2,'Linksys WRT54G',4,'http://www.securityfocus.com/bid/28381','Linksys WRT54G Wireless-G Router is prone to multiple authentication-bypass vulnerabilities.  The issues affect firmware v1.00.9.','admin:admin',NULL,'2006-11-22'),(2,4,1,2,'Linksys EA2700',5,'http://www.superevr.com/blog/2013/dont-use-linksys-routers','Linksys EA2700 Multiple Remote Vulnerabilities','admin:admin',NULL,'2013-04-05'),(3,6,2,2,'D-Link WBR-1310',4,'http://seclists.org/fulldisclosure/2010/Dec/569','The CGI scripts in the WBR-1310 (firmware v.2.00) do not validate authentication credentials, so using the \"apply settings\" cgi script, an a','admin:(blank)',NULL,NULL);
+/*!40000 ALTER TABLE `vulndb` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-04-24 15:06:58

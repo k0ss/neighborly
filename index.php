@@ -33,6 +33,7 @@ else{
         <form class="form-signin" role="form" id="frmSignIn">
             <h1 class="text-center">Neighborly</h1>
             <input type="password" class="form-control" name="k" id="k" placeholder="Shodan API Key" required autofocus>
+            <span id="alert-placeholder"></span>
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> Remember me
             </label>

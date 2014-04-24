@@ -5,14 +5,22 @@
  * Time: 11:37 AM
  */
 session_start();
-if(!isset($_SESSION['key']) && $_SERVER['PHP_SELF'] != '/index.php')
-    header('Location: index.php');
-else if(isset($_SESSION['key']) && $_SERVER['PHP_SELF'] == '/index.php')
-    header('Location: map.php');
+include_once("./include/shodan4php.php");
+$db['host'] = "localhost";
+$db['schm'] = "neighborly";
+$db['user'] = "neighborly";
+$db['pass'] = "password";
 
-$cfg['dbhost'] = "localhost";
-$cfg['dbname'] = "neighborly";
-$cfg['dbuser'] = "neighborly";
-$cfg['dbpass'] = "password";
+if(!isset($_SESSION['key'])){
+    if($_SERVER['PHP_SELF'] != '/index.php')
+        header('Location: index.php');
+}
+else
+{
+    $shodan = new shodan4php($_SESSION['key']);
+    if($_SERVER['PHP_SELF'] == '/index.php')
+        header('Location: map.php');
+}
+
 
 ?>

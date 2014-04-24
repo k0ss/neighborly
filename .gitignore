@@ -1,0 +1,8 @@
+.idea/.name
+.idea/deployment.xml
+.idea/workspace.xml
+.idea/encodings.xml
+.idea/misc.xml
+*.xml
+*.iml
+include/config.php
