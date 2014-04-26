@@ -15,23 +15,4 @@ if(!mysqli_connect_errno())
     }
     exit(json_encode($sigs));
 }
-    /*
-    //Now query for each signature using either a multi-curl_exec or separate requests.
-    //list($count,$radius) = findDevices($coords,$query);
-    //puts "Found $count devices in a $radius km radius"
-    // Search Shodan
-    puts "[DEBUG]\tapi.search(#{search})"
-    results = api.search(search)
-
-    //Show the results
-    puts "Of those devices, #{results['total']} match your query..."
-
-    results['matches'].each { |result|
-            puts "IP: #{result['ip']}"
-            puts result['data']
-    }
-    rescue Exception => e
-            puts "Error: #{e.to_s}"
-    end
-    */
 ?>

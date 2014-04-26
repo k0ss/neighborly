@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: Kyle Ossinger
- * Date: 2/9/14
- * Time: 11:37 AM
- */
 session_start();
 include_once("./include/shodan4php.php");
 $db['host'] = "localhost";

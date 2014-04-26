@@ -2,9 +2,17 @@ var MapStruct = {
     map: null,
     radiusCircle: null,
     defaultRadius: 1, //1km = default radius
+    markers: [],
     // selector function
     round: function(num){
         return Number((num).toFixed(2));
+    },
+    makeInfoWindowEvent: function(infoWindow, contentString, marker) {
+        google.maps.event.addListener(marker, 'click', function()
+        {
+            infoWindow.setContent(contentString);
+            infoWindow.open(MapStruct.map, marker);
+        });
     },
     mapUpdate: function(location,radius){
         if(MapStruct.map != null){
@@ -94,13 +102,18 @@ var MapStruct = {
                                                             var markerLoc = new google.maps.LatLng(fixedLat,fixedLng);
                                                             var markerIP = match['ip'] + ':' + match['port'];
 
-                                                            //NOW I JUST NEED TO MAKE EACH MARKER HAVE AN INFO POPUP
+                                                            //TODO: Make infoWindows show vuln details from database
+                                                            //TODO: Make only one infoWindow show up at once
                                                             //http://stackoverflow.com/questions/11467070/how-to-set-a-popup-on-markers-with-google-maps-api
+                                                            var infoWindow = new google.maps.InfoWindow();
+
                                                             var marker = new google.maps.Marker({
                                                                 position: markerLoc,
                                                                 map: MapStruct.map,
                                                                 title: markerIP
-                                                            })
+                                                            });
+                                                            MapStruct.makeInfoWindowEvent(infoWindow,markerIP,marker);
+
                                                         })(matchNum)
                                                     }
                                                 }

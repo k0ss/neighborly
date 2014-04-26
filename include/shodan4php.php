@@ -1,13 +1,5 @@
 <?php
 /**
- * Author: Kyle Ossinger
- * Date: 2/1/14
- * Time: 10:36 PM
- * Based on the JSON API documentation on https://developers.shodan.io/shodan-rest.html
- * All credit for the Shodan WebAPI goes to Achillean.
- */
-
-/**
  * Class shodan4php
  * Usage: include this file, then use "$shodan = new shodan4php(APIKEY)" with your API key.
  */
