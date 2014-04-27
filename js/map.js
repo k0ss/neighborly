@@ -68,7 +68,7 @@ var MapStruct = {
                     {
                         for (var sig in data)
                         {
-                            (function(sig){ //make sure we're dealing with correct sig, because of asynchronous behavior
+                            (function(sig,sigdata){ //make sure we're dealing with correct sig, because of asynchronous behavior
                                 var loc = encodeURI(coords.lat+","+coords.lng);
                                 var vulnCount= "/vulnsearch.php?op=1&sig=" + sig + "&loc=" + loc;
                                 $.getJSON(vulnCount,function(data,status){ //gets hit count for each signature
@@ -83,7 +83,7 @@ var MapStruct = {
                                                 if(status=="success")
                                                 {
                                                     var count = data['total'];
-                                                    console.log(data);
+                                                    //console.log(data);
                                                     for (var matchNum in data['matches'])
                                                     {
                                                         (function(matchNum)
@@ -102,19 +102,33 @@ var MapStruct = {
                                                             var markerLoc = new google.maps.LatLng(fixedLat,fixedLng);
                                                             var markerIP = match['ip'] + ':' + match['port'];
 
-                                                            //TODO: Make infoWindows show vuln details from database
                                                             //TODO: Make only one infoWindow show up at once
                                                             //http://stackoverflow.com/questions/11467070/how-to-set-a-popup-on-markers-with-google-maps-api
-                                                            var infoWindow = new google.maps.InfoWindow();
+                                                            var infoWindow = new google.maps.InfoWindow({
+                                                                maxWidth: 200
+                                                            });
 
                                                             var marker = new google.maps.Marker({
                                                                 position: markerLoc,
                                                                 map: MapStruct.map,
                                                                 title: markerIP
                                                             });
-                                                            MapStruct.makeInfoWindowEvent(infoWindow,markerIP,marker);
+                                                            //TODO: Make infoWindows show vuln details from database
+                                                            $.getJSON("/getinfo.php?vid="+sigdata[sig],
+                                                                function(data,status){
+                                                                    if(status == "success"){
+                                                                        (function(match){ //ensuring we can reference the shodan details too
+                                                                            var infoContent = "<h3>"+data['name']+"</h3>" +
+                                                                                "</br><b>Default Login: </b>"+data['creds'] +
+                                                                                "</br><b>Advisory: </b> <a href=\""+data['adv']+"\">Link</a>"+
+                                                                                "</br><b>Description: </b>"+data['desc'];
+                                                                                //console.log("vulnid for "+sig+" is : "+sigdata[sig]+".");
+                                                                                MapStruct.makeInfoWindowEvent(infoWindow,infoContent,marker);
+                                                                        })(match);
+                                                                    }
+                                                            });
 
-                                                        })(matchNum)
+                                                        })(matchNum);
                                                     }
                                                 }
                                             });
@@ -124,7 +138,7 @@ var MapStruct = {
                                     else
                                         console.log("FAILED to get hit count of devices in your area");
                                 });
-                            })(sig);
+                            })(sig,data);
                         }
                     }
                     else
