@@ -83,7 +83,7 @@ var MapStruct = {
                                                 if(status=="success")
                                                 {
                                                     var count = data['total'];
-                                                    //console.log(data);
+                                                    console.log(data);
                                                     for (var matchNum in data['matches'])
                                                     {
                                                         (function(matchNum)
@@ -119,6 +119,7 @@ var MapStruct = {
                                                                     if(status == "success"){
                                                                         (function(match){ //ensuring we can reference the shodan details too
                                                                             var infoContent = "<h3>"+data['name']+"</h3>" +
+                                                                                "</br><b>Organization: </b>"+match['org'] +
                                                                                 "</br><b>Default Login: </b>"+data['creds'] +
                                                                                 "</br><b>Advisory: </b> <a href=\""+data['adv']+"\">Link</a>"+
                                                                                 "</br><b>Description: </b>"+data['desc'];
